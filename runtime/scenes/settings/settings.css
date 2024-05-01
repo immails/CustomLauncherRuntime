@@ -44,9 +44,7 @@ Slider .axis {
     -fx-padding: 10px;
 }
 #settingslist {
-    -fx-padding: 15px;
-    -fx-background-color: -fx-colors-baseGA;
-    -fx-background-radius: 15px;
+    -fx-padding: 16px;
 }
 #changeDir {
     -fx-background-color: -fx-colors-base;

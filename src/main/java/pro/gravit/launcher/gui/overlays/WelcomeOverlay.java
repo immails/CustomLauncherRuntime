@@ -1,5 +1,7 @@
 package pro.gravit.launcher.gui.overlays;
 
+import java.text.MessageFormat;
+
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +29,10 @@ public class WelcomeOverlay extends AbstractOverlay {
 
     @Override
     public void reset() {
+        application.trayIcon.notify(
+            application.getTranslation("runtime.tray.loggedInTitle"), 
+            MessageFormat.format(application.getTranslation("runtime.tray.loggedInDetails"), application.authService.getUsername())
+        );
         LookupHelper.<Label>lookupIfPossible(layout, "#playerName")
                     .ifPresent((e) -> e.setText(application.authService.getUsername()));
         LookupHelper.<ImageView>lookupIfPossible(layout, "#playerHead").ifPresent((h) -> {

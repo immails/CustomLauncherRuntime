@@ -369,8 +369,7 @@ public class VisualDownloader {
             double bytesSpeed = (double) (newValue - lastDownloaded.get()) / (double) (currentTime - lastTime) * 1000.0;
             String speedFormat = "%.1f".formatted(bytesSpeed * 8 / (1000.0 * 1000.0));
             ContextHelper.runInFxThreadStatic(() -> {
-                volume.setText("%.1f/%.1f MB".formatted((double) newValue / (1024.0 * 1024.0),
-                                                           (double) totalSize.get() / (1024.0 * 1024.0)));
+                volume.setText("%.1f / %.1f MB".formatted((double) newValue / (1024.0 * 1024.0), (double) totalSize.get() / (1024.0 * 1024.0)));
                 speed.setText(speedFormat);
             });
             lastUpdateTime.set(currentTime);

@@ -98,30 +98,31 @@ public class LoginScene extends AbstractScene {
     private void launcherRequest() {
         LauncherRequest launcherRequest = new LauncherRequest();
         processRequest(application.getTranslation("runtime.overlay.processing.text.launcher"), launcherRequest,
-                       (result) -> {
-                           if (result.needUpdate) {
-                               try {
-                                   LogHelper.debug("Start update processing");
-                                   disable();
-                                   StdJavaRuntimeProvider.updatePath = LauncherUpdater.prepareUpdate(
-                                           new URI(result.url).toURL());
-                                   LogHelper.debug("Exit with Platform.exit");
-                                   Platform.exit();
-                                   return;
-                               } catch (Throwable e) {
-                                   contextHelper.runInFxThread(() -> errorHandle(e));
-                                   try {
-                                       Thread.sleep(1500);
-                                       LauncherEngine.modulesManager.invokeEvent(new ClientExitPhase(0));
-                                       Platform.exit();
-                                   } catch (Throwable ex) {
-                                       LauncherEngine.exitLauncher(0);
-                                   }
-                               }
-                           }
-                           LogHelper.dev("Launcher update processed");
-                           getAvailabilityAuth();
-                       }, (event) -> LauncherEngine.exitLauncher(0));
+            (result) -> {
+                if (result.needUpdate) {
+                    try {
+                        application.trayIcon.notify(application.getTranslation("runtime.tray.update"));
+                        LogHelper.debug("Start update processing");
+                        disable();
+                        StdJavaRuntimeProvider.updatePath = LauncherUpdater.prepareUpdate(new URI(result.url).toURL());
+                        LogHelper.debug("Exit with Platform.exit");
+                        Platform.exit();
+                        return;
+                    } catch (Throwable e) {
+                        contextHelper.runInFxThread(() -> errorHandle(e));
+                        try {
+                            application.trayIcon.notify(application.getTranslation("runtime.tray.updateFinished"));
+                            Thread.sleep(1500);
+                            LauncherEngine.modulesManager.invokeEvent(new ClientExitPhase(0));
+                            Platform.exit();
+                        } catch (Throwable ex) {
+                            LauncherEngine.exitLauncher(0);
+                        }
+                    }
+                }
+                LogHelper.dev("Launcher update processed");
+                getAvailabilityAuth();
+            }, (event) -> LauncherEngine.exitLauncher(0));
     }
 
     private void getAvailabilityAuth() {

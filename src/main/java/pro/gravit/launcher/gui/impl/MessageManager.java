@@ -7,6 +7,7 @@ import pro.gravit.launcher.gui.helper.PositionHelper;
 import pro.gravit.launcher.gui.scenes.AbstractScene;
 import pro.gravit.launcher.gui.stage.DialogStage;
 
+import java.awt.TrayIcon.MessageType;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class MessageManager {
@@ -39,31 +40,34 @@ public class MessageManager {
     }
 
     public void createNotification(String head, String message, boolean isLauncher) {
-        NotificationDialog dialog = new NotificationDialog(application, head, message);
-        if (isLauncher) {
-            AbstractStage stage = application.getMainStage();
-            if (stage == null)
-                throw new NullPointerException("Try show launcher notification in application.getMainStage() == null");
-            ContextHelper.runInFxThreadStatic(() -> {
-                dialog.init();
-                stage.pushNotification(dialog.getFxmlRootPrivate());
-                dialog.setOnClose(() -> stage.pullNotification(dialog.getFxmlRootPrivate()));
-            });
-        } else {
-            AtomicReference<DialogStage> stage = new AtomicReference<>(null);
-            ContextHelper.runInFxThreadStatic(() -> {
-                NotificationDialog.NotificationSlot slot = new NotificationDialog.NotificationSlot(
-                        (scrollTo) -> stage.get().stage.setY(stage.get().stage.getY() + scrollTo),
-                        ((Pane) dialog.getFxmlRootPrivate()).getPrefHeight() + 20);
-                dialog.setPosition(PositionHelper.PositionInfo.BOTTOM_RIGHT, slot);
-                dialog.setOnClose(() -> {
-                    stage.get().close();
-                    stage.get().stage.setScene(null);
-                });
-                stage.set(new DialogStage(application, head, dialog));
-                stage.get().show();
-            });
-        }
+        System.out.println(head + ", " + message + ", " + String.valueOf(isLauncher));
+        if(head == "Error") application.trayIcon.notify(MessageType.ERROR, message);
+        else application.trayIcon.notify(head, message);
+        // NotificationDialog dialog = new NotificationDialog(application, head, message);
+        // if (isLauncher) {
+        //     AbstractStage stage = application.getMainStage();
+        //     if (stage == null)
+        //         throw new NullPointerException("Try show launcher notification in application.getMainStage() == null");
+        //     ContextHelper.runInFxThreadStatic(() -> {
+        //         dialog.init();
+        //         stage.pushNotification(dialog.getFxmlRootPrivate());
+        //         dialog.setOnClose(() -> stage.pullNotification(dialog.getFxmlRootPrivate()));
+        //     });
+        // } else {
+        //     AtomicReference<DialogStage> stage = new AtomicReference<>(null);
+        //     ContextHelper.runInFxThreadStatic(() -> {
+        //         NotificationDialog.NotificationSlot slot = new NotificationDialog.NotificationSlot(
+        //                 (scrollTo) -> stage.get().stage.setY(stage.get().stage.getY() + scrollTo),
+        //                 ((Pane) dialog.getFxmlRootPrivate()).getPrefHeight() + 20);
+        //         dialog.setPosition(PositionHelper.PositionInfo.BOTTOM_RIGHT, slot);
+        //         dialog.setOnClose(() -> {
+        //             stage.get().close();
+        //             stage.get().stage.setScene(null);
+        //         });
+        //         stage.set(new DialogStage(application, head, dialog));
+        //         stage.get().show();
+        //     });
+        // }
     }
 
     public void showDialog(String header, String text, Runnable onApplyCallback, Runnable onCloseCallback,

@@ -23,6 +23,7 @@ public class UpdateScene extends AbstractScene {
     private Label speedtext;
     private Label speederr;
     private Pane speedon;
+    private int logs = 0;
 
     private VisualDownloader downloader;
     private volatile DownloadStatus downloadStatus = DownloadStatus.COMPLETE;
@@ -73,7 +74,8 @@ public class UpdateScene extends AbstractScene {
 
     public void addLog(String string) {
         LogHelper.dev("Update event %s", string);
-        logOutput.appendText(string.concat("\n"));
+        logOutput.appendText(String.valueOf(logs) + ". " + string.concat(" ✨\n"));
+        logs++;
     }
 
     @Override

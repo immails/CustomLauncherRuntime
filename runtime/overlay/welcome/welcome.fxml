@@ -17,26 +17,22 @@
             <fx:include source="../../components/buttons/exit.fxml" />
         </HBox>
     </AnchorPane>
-    <VBox alignment="CENTER" spacing="24.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+    <VBox alignment="CENTER" spacing="24.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
         <children>
-            <ImageView id="playerHead" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../images/icons/default.png" />
-            </ImageView>
             <VBox alignment="CENTER">
                 <children>
+                  <ImageView id="logo" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../../images/logo.png" />
+                      </image>
+                  </ImageView>
                     <Label id="header-text" alignment="CENTER" text="%runtime.scenes.login.welcome" />
                     <Label id="playerName" text="PLAYER123456" />
                 </children>
             </VBox>
         </children>
     </VBox>
-    <HBox alignment="CENTER" maxHeight="256.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-        <children>
-            <ImageView id="logo" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../../images/logo.png" />
-                </image>
-            </ImageView>
-        </children>
-    </HBox>
+      <ImageView id="playerHead" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" visible="false">
+          <Image url="@../../images/icons/default.png" />
+      </ImageView>
 </AnchorPane>

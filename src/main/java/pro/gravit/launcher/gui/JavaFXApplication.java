@@ -52,6 +52,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 public class JavaFXApplication extends Application {
+    public TrayIcon trayIcon = new TrayIcon(this);
+
     private static final AtomicReference<JavaFXApplication> INSTANCE = new AtomicReference<>();
     private static Path runtimeDirectory = null;
     public final LauncherConfig config = Launcher.getConfig();

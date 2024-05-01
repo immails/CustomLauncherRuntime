@@ -12,10 +12,15 @@
     -fx-background-radius: 20px;
     -fx-effect: -fx-effect-dropshadow;
 }
+#speedOn {
+    -fx-background-color: -fx-tinted-glass-hover;
+    -fx-background-radius: 16px;
+    -fx-padding: 16px 0px 24px 0px;
+}
 #speed {
-    -fx-text-fill: linear-gradient(to right, #7248A7 0%, #2C03A8 100%);
+    -fx-text-fill: white;
     -fx-text-align: center;
-    -fx-font-size: 48px;
+    -fx-font-size: 32px;
     -fx-font-weight: bold;
 }
 #speed-text {
@@ -24,28 +29,31 @@
     -fx-text-fill: -fx-colors-text;
 }
 #volume {
-    -fx-text-fill: -fx-colors-text;
+    -fx-text-fill: white;
+    -fx-text-align: center;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
 }
 .speedError {
     -fx-text-fill: -fx-red;
-    -fx-font-size: 48px;
+    -fx-font-size: 32px;
 }
 /* Прогресс бар */
 ProgressBar {
     -fx-indeterminate-bar-flip: false;
     -fx-background-color: -fx-colors-baseG;
-    -fx-background-radius: 0px 10px 10px 0px;
+    -fx-background-radius: 10px 10px 10px 10px;
     -fx-effect: -fx-effect-dropshadow;
 }
 ProgressBar>.bar {
     -fx-background-color: -fx-updateGR;
     -fx-background-insets: 0px;
-    -fx-background-radius: 0px 10px 10px 0px;
+    -fx-background-radius: 10px 10px 10px 10px;
 }
 ProgressBar>.track {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
-    -fx-background-radius: 0px 10px 10px 0px;
+    -fx-background-radius: 10px 10px 10px 10px;
 }
 /* Добавляется при ошибке загрузки */
 .progressError>.bar {
